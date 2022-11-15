@@ -1,0 +1,2 @@
+Input the number of rows: 2
+Input the number of columns: 2
