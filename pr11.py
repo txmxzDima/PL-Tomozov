@@ -1,33 +1,33 @@
-from tkinter import *
-from tkinter import ttk
-from tkinter.ttk import Radiobutton
-from tkinter.ttk import Combobox
-from tkinter import messagebox
-import json
 import requests
-from pprint import pprint
+from tkinter import *
 
-def clicked():
-    str=txt1.get()
-    if str!='':
-        user_data = request.get(str).json()
-        pprint(user_data)
+def click():
+    rep = txt.get()
+    r = requests.get(f"https://api.github.com/repos/{rep}") #txmxzDima/PL-Tomozov
 
-        us_data={'company':None,'created_at':'2015-08-03T17:55:43Z','email':None,'id'=13629408,'name':'Kubernetes','url':'https://github.com/Automattic/wp-calypso'}
-        for i in user_data:
-         if i=="company" or i=="id" or i=='created_at' or i=='email' or i=='name' or i=='url':
-             us_data[i]=user_data[i]
-        with open("data_file.json", "w") as write_file:
-            json_dump(us_data,write_file)
+    with open("C:\\Users\\HP\\Desktop\\12.txt", "a+") as f:
+        if 'company' in r.json():
+            f.write(f"'company': '{r.json()['company']}'\n")
+        else:
+            f.write("'company':")
+            f.write("None\n")
+        f.write(f"'created_at': '{r.json()['created_at']}'\n")
+        if 'email' in r.json():
+            f.write(f"'email': '{r.json()['email']}'\n")
+        else:
+            f.write("'email':")
+            f.write("None\n")
+        f.write(f"'id': '{r.json()['id']}'\n")
+        f.write(f"'name': '{r.json()['name']}'\n")
+        f.write(f"'url': '{r.json()['url']}'\n")
 
 window = Tk()
-window.title(" приложение ")
+window.title('Dmitriy Tomozov UB-22')
 window.geometry('400x250')
-
-txt1 = Entry(window, width=50)
-txt1.grid(column=0, row=1)
-
-btn1 = Button(window, text=" Ok ", command=clicked1)
-btn.grid(column=1, row=1)
-
+lbl = Label(window, text='Введите репозиторий', font=('Times New Roman', 14))
+lbl.grid(column=0, row=0)
+btn = Button(window, text='Подтвердить', command=click)
+btn.grid(column=2, row=0)
+txt = Entry(window, width=10)
+txt.grid(column=1, row=0)
 window.mainloop()
